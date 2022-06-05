@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        noEmpty: true,
-        email: true
+        notEmpty: true,
+        isEmail: true
       }
     },
     password_digest:{
@@ -47,14 +47,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        noEmpty: true
+        notEmpty: true
       }
     },
     last_name:  {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        noEmpty: true
+        notEmpty: true
       }
     }
   }, {

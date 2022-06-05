@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Budget, Expense }) {
-      this.hasMany(Expense, {
+    static associate({ Budget, Expenses }) {
+      this.hasMany(Expenses, {
         foreignKey: 'expenses_category_id',
         onDelete: 'CASCADE'
       })
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        noEmpty: true
+        notEmpty: true
       }
     },
     set_amount: {

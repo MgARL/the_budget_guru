@@ -17,8 +17,8 @@ module.exports = {
         allowNull: false,
         unique: true,
         validate: {
-          noEmpty: true,
-          email: true
+          notEmpty: true,
+          isEmail: true
         }
       },
       password_digest:{
@@ -32,14 +32,14 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          noEmpty: true
+          notEmpty: true
         }
       },
       last_name:  {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          noEmpty: true
+          notEmpty: true
         }
       },
       createdAt: {
