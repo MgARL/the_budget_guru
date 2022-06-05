@@ -6,17 +6,18 @@ const jwt = require('json-web-token')
 const { User } = db
 
 // sign_up
-auth.post('/signup',async (req, res) => {
+auth.post('/signup', async (req, res) => {
     let { password, ...rest } = req.body
     try {
         const user = await User.create({
             ...rest,
             password_digest: await bcrypt.hash(password, 12)
         })
-        if(user){
+        if (user) {
             res.status(200).json({
                 message: 'Account Created'
             })
+            return
         }
         res.status(500).json({
             message: 'Something went wrong please try again'
@@ -27,6 +28,35 @@ auth.post('/signup',async (req, res) => {
             message: 'Something went wrong please try again'
         })
     }
-} )
+})
+
+// login
+auth.post('/login', async (req, res) => {
+    try {
+        let user = await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+        if (!user || !await bcrypt.compare(req.body.password, user.password_digest)) {
+            res.status(403).json({
+                message: 'Wrong credentials provided, please try again'
+            })
+        } else {
+            const result = await jwt.encode(process.env.JWT_SECRET, {
+                id: user.user_id
+            })
+            res.status(200).json({
+                token: result.value
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            error,
+            message: 'Something went wrong please try again'
+        })
+    }
+
+})
 
 module.exports = auth
