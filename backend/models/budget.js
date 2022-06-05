@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        noEmpty: true
+        notEmpty: true
       }
     },
     budget_date: {

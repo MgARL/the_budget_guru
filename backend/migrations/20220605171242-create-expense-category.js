@@ -21,7 +21,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          noEmpty: true
+          notEmpty: true
         }
       },
       set_amount: {
