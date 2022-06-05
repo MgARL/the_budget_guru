@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-const portNumber = process.env.portNumber || 3000
+const portNumber = process.env.PORT
 
 const app = express()
 
@@ -22,4 +22,4 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(portNumber, () => console.log(`listening on por ${portNumber}`))
+app.listen(portNumber, () => console.log(`listening on port ${portNumber}`))
