@@ -4,6 +4,7 @@ require('dotenv').config()
 const portNumber = process.env.PORT
 
 const app = express()
+const authControllers = require('./controllers/auth_controller')
 
 // MiddleWare
 const corsOptions = {
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // controllers
+app.use('/auth', authControllers)
 
 app.get('*', (req, res) => {
     res.status(404).json({

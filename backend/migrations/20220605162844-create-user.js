@@ -12,12 +12,20 @@ module.exports = {
         type: DataTypes.ENUM('admin','regular'),
         defaultValue: 'regular'
       },
-      username: {
+      email:{
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          noEmpty: true
+          noEmpty: true,
+          email: true
+        }
+      },
+      password_digest:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
         }
       },
       name:  {
