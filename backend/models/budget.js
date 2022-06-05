@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     budget_date: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      defaultValue: DataTypes.NOW
     }
   }, {
     sequelize,
