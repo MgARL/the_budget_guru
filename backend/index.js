@@ -6,6 +6,7 @@ const portNumber = process.env.PORT
 const app = express()
 const authController = require('./controllers/auth_controller')
 const budgetController = require('./controllers/budget_controller')
+const incomeController = require('./controllers/income_controller')
 const defineCurrentUser  = require('./middleware/defineCurrentUser')
 
 // MiddleWare
@@ -21,6 +22,7 @@ app.use(express.json())
 app.use('/auth', authController)
 
 app.use('/budget', defineCurrentUser, budgetController)
+app.use('/income', defineCurrentUser, incomeController)
 
 app.get('*', (req, res) => {
     res.status(404).json({
