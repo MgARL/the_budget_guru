@@ -17,6 +17,13 @@ module.exports = {
           key: 'expenses_category_id'
         }
       },
+      expense_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
       amount: {
         type: DataTypes.INTEGER,
         allowNull: false

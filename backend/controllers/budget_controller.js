@@ -1,5 +1,4 @@
 const budget = require('express').Router()
-const { DATE } = require('sequelize')
 const db = require('../models')
 
 const { Budget } = db
@@ -43,14 +42,44 @@ budget.post('/create', async (req, res) =>{
         })
     }
 })
+// update budget
+budget.put('/update', async (req, res) => {
+    const { budget_id, ...rest } = req.body
+    try {
+        await Budget.update( rest ,{
+            where: {
+                budget_id
+            }
+        })
+        res.status(200).json({
+            message: `Budget has been updated`
+        })
+    } catch (error) {
+        res.status(500).json({
+            error,
+            message: 'Something went wrong please try again'
+        })
+    }
+})
 
 //delete budget
 
 budget.delete('/delete', async (req, res) => {
+    const { budget_id } = req.body
     try {
-        
+        await Budget.destroy({
+            where: {
+                budget_id
+            }
+        })
+        res.status(200).json({
+            message: 'Budget Deleted'
+        })
     } catch (error) {
-        
+        res.status(500).json({
+            error,
+            message: 'Something went wrong please try again'
+        })
     }
 })
 
