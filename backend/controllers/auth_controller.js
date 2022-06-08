@@ -1,7 +1,7 @@
 const auth = require('express').Router()
 const db = require('../models')
 const bcrypt = require('bcrypt')
-const jwt = require('json-web-token')
+const jwt = require('jsonwebtoken')
 
 const { User } = db
 
@@ -43,11 +43,12 @@ auth.post('/login', async (req, res) => {
                 message: 'Wrong credentials provided, please try again'
             })
         } else {
-            const result = await jwt.encode(process.env.JWT_SECRET, {
+            const token = jwt.sign({
                 id: user.user_id
-            })
+            }, process.env.JWT_SECRET)
+            console.log(token)
             res.status(200).json({
-                token: result.value
+                token
             })
         }
     } catch (error) {
