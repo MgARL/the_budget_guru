@@ -1,19 +1,19 @@
-const income = require('express').Router()
+const expense = require('express').Router()
 const db = require('../models')
 
-const { Income } = db
+const { Expenses } = db
 
 // routes
-income.get('/get', async (req, res) => {
-    const { budget_id } = req.query
+expense.get('/get', async (req, res) => {
+    const { expenses_category_id } = req.query
     try {
-        const incomes = await Income.findAll({
+        const expenses = await Expenses.findAll({
             where: {
-               budget_id,
+                expenses_category_id,
             }
         })
         res.status(200).json({
-            incomes
+            expenses
         })
     } catch (error) {
         res.status(500).json({
@@ -23,14 +23,14 @@ income.get('/get', async (req, res) => {
     }
 })
 
-income.post('/create', async (req, res) => {
+expense.post('/create', async (req, res) => {
     try {
-        const newIncome = await Income.create({
+        const newExpense = await Expenses.create({
             ...req.body
         })
-        if (newIncome){
+        if (newExpense){
             res.status(201).json({
-                message: 'Income Added'
+                message: 'expenses Added'
             })
         }
     } catch (error) {
@@ -41,12 +41,12 @@ income.post('/create', async (req, res) => {
     }
 })
 
-income.put('/update', async (req, res) => {
-    const { income_id, ...rest } = req.body
+expense.put('/update', async (req, res) => {
+    const { expense_id, ...rest } = req.body
     try {
-        await Income.update( rest,{
+        await Expenses.update( rest,{
             where:{
-                income_id
+                expense_id
             }
         })
         res.status(204).end()
@@ -58,12 +58,12 @@ income.put('/update', async (req, res) => {
     }
 })
 
-income.delete('/delete', async (req, res) => {
-    const { income_id } = req.body
+expense.delete('/delete', async (req, res) => {
+    const { expense_id } = req.body
     try {
-        await Income.destroy({
+        await Expenses.destroy({
             where: {
-                income_id
+                expense_id
             }
         })
         res.status(204).end()
@@ -75,4 +75,4 @@ income.delete('/delete', async (req, res) => {
     }
 })
 
-module.exports = income
+module.exports = expense

@@ -14,13 +14,15 @@ async function defineCurrentUser(req, res, next) {
                 user_id: id
             }
         })
-        req.currentUser = user.dataValues
-        next()
+        if(user){
+            req.currentUser = user.dataValues
+            return next()
+        }
 
     } catch (error) {
         res.status(500).json({
             error,
-            message: 'Something went wrong please try again or login'
+            message: 'Something went wrong please try again or login AA'
         })
     }
 }

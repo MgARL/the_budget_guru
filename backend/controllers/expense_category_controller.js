@@ -1,19 +1,19 @@
-const income = require('express').Router()
+const expensesCat = require('express').Router()
 const db = require('../models')
 
-const { Income } = db
+const { Expense_Category} = db
 
 // routes
-income.get('/get', async (req, res) => {
+expensesCat.get('/get', async (req, res) => {
     const { budget_id } = req.query
     try {
-        const incomes = await Income.findAll({
+        const expensesCategories = await Expense_Category.findAll({
             where: {
-               budget_id,
+                budget_id,
             }
         })
         res.status(200).json({
-            incomes
+            expensesCategories
         })
     } catch (error) {
         res.status(500).json({
@@ -23,14 +23,14 @@ income.get('/get', async (req, res) => {
     }
 })
 
-income.post('/create', async (req, res) => {
+expensesCat.post('/create', async (req, res) => {
     try {
-        const newIncome = await Income.create({
+        const newExpensesCat = await Expense_Category.create({
             ...req.body
         })
-        if (newIncome){
+        if (newExpensesCat){
             res.status(201).json({
-                message: 'Income Added'
+                message: 'expensesCat Added'
             })
         }
     } catch (error) {
@@ -41,12 +41,12 @@ income.post('/create', async (req, res) => {
     }
 })
 
-income.put('/update', async (req, res) => {
-    const { income_id, ...rest } = req.body
+expensesCat.put('/update', async (req, res) => {
+    const { expenses_category_id, ...rest } = req.body
     try {
-        await Income.update( rest,{
+        await Expense_Category.update( rest,{
             where:{
-                income_id
+                expenses_category_id
             }
         })
         res.status(204).end()
@@ -58,12 +58,12 @@ income.put('/update', async (req, res) => {
     }
 })
 
-income.delete('/delete', async (req, res) => {
-    const { income_id } = req.body
+expensesCat.delete('/delete', async (req, res) => {
+    const { expenses_category_id } = req.body
     try {
-        await Income.destroy({
+        await Expense_Category.destroy({
             where: {
-                income_id
+                expenses_category_id
             }
         })
         res.status(204).end()
@@ -75,4 +75,4 @@ income.delete('/delete', async (req, res) => {
     }
 })
 
-module.exports = income
+module.exports = expensesCat

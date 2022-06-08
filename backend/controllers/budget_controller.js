@@ -26,12 +26,12 @@ budget.get('/get', async (req, res) => {
 // create budget
 budget.post('/create', async (req, res) =>{
     try {
-        let budget = await Budget.create({
+        const budget = await Budget.create({
             ...req.body,
             user_id: req.currentUser.user_id,
         })
         if (budget){
-            res.status(200).json({
+            res.status(201).json({
                 message: 'budget created'
             })
         }
@@ -51,9 +51,7 @@ budget.put('/update', async (req, res) => {
                 budget_id
             }
         })
-        res.status(200).json({
-            message: `Budget has been updated`
-        })
+        res.status(204).end()
     } catch (error) {
         res.status(500).json({
             error,
@@ -72,9 +70,7 @@ budget.delete('/delete', async (req, res) => {
                 budget_id
             }
         })
-        res.status(200).json({
-            message: 'Budget Deleted'
-        })
+        res.status(204).end()
     } catch (error) {
         res.status(500).json({
             error,
