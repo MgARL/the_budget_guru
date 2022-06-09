@@ -45,7 +45,7 @@ auth.post('/login', async (req, res) => {
         } else {
             const token = jwt.sign({
                 id: user.user_id
-            }, process.env.JWT_SECRET)
+            }, process.env.JWT_SECRET, { expiresIn: '1h'})
             console.log(token)
             res.status(200).json({
                 token

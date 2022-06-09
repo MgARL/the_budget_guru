@@ -7,8 +7,7 @@ async function defineCurrentUser(req, res, next) {
     try {
         const token = req.headers.authorization.split(' ')[1]
 
-        const result = await jwt.verify(token, process.env.JWT_SECRET)
-        console.log(result)
+        const result = jwt.verify(token, process.env.JWT_SECRET)
         const { id } = result
         let user = await User.findOne({
             where: {
@@ -19,11 +18,9 @@ async function defineCurrentUser(req, res, next) {
             req.currentUser = user.dataValues
             return next()
         }
-
     } catch (error) {
         res.status(500).json({
-            error,
-            message: 'Something went wrong please try again or login AA'
+            message: 'Please Log-in again'
         })
     }
 }
